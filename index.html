@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provas que não xitei</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-yellow: #FFD700;
+            --primary-yellow-hover: #ffea00;
+            --bg-color: #0a0a0a;
+            --text-color: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 1.5rem;
+            overflow-x: hidden;
+        }
+
+        header {
+            max-width: 900px;
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+            color: #d1d1d1;
+            background: rgba(255, 215, 0, 0.03);
+            padding: 2rem;
+            border-radius: 16px;
+            border-left: 5px solid var(--primary-yellow);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            text-align: justify;
+            text-align-last: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--primary-yellow);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 900;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            margin-bottom: 1rem;
+        }
+
+        main {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideUp 1s ease-out;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .image-wrapper {
+            flex: 1;
+            aspect-ratio: 16/9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border: 6px solid var(--primary-yellow);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.15);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #111;
+        }
+
+        .image-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.3);
+        }
+
+        .carousel-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--primary-yellow);
+            font-size: 5rem;
+            cursor: pointer;
+            padding: 0 10px;
+            transition: color 0.3s ease, transform 0.2s ease, text-shadow 0.3s ease;
+            user-select: none;
+            z-index: 10;
+        }
+
+        .nav-btn:hover {
+            color: var(--primary-yellow-hover);
+            transform: scale(1.15);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-img {
+            max-width: 85vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border: 4px solid var(--primary-yellow);
+            border-radius: 12px;
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.25);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: var(--primary-yellow);
+            font-size: 4rem;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.2s ease, text-shadow 0.3s ease;
+            z-index: 1001;
+            line-height: 1;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            color: var(--primary-yellow-hover);
+            transform: scale(1.2);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .lightbox .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 6rem;
+        }
+
+        .lightbox .nav-btn:hover {
+            transform: translateY(-50%) scale(1.15);
+        }
+
+        .lightbox .prev-btn-lb {
+            left: 40px;
+        }
+
+        .lightbox .next-btn-lb {
+            right: 40px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .nav-btn {
+                font-size: 3.5rem;
+            }
+
+            .lightbox .nav-btn {
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .intro-text {
+                font-size: 1rem;
+                padding: 1.5rem;
+            }
+
+            .nav-btn {
+                font-size: 2.5rem;
+                padding: 0 5px;
+            }
+
+            .lightbox .nav-btn {
+                font-size: 3rem;
+            }
+
+            .lightbox .prev-btn-lb {
+                left: 10px;
+            }
+
+            .lightbox .next-btn-lb {
+                right: 10px;
+            }
+
+            .close-btn {
+                top: 15px;
+                right: 20px;
+                font-size: 3rem;
+            }
+
+            .image-wrapper {
+                aspect-ratio: 4/3;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <p class="intro-text">
+            Fui fazer uma trade de skin, mas o site era fake, no outro dia entrei na steam estava dando
+            senha incorreta, logo presumi que fui hackeado, agora se a pessoa que hackeou foi para roubar
+            alguma skin ou só xitar não sei dizer, aí fui ver minha conta da steam no Google tinha essa notificação
+            na tela. De fato meu trust está vermelho porque o cara girou na minha conta e fudeu com tudo,
+            mas enfim é isso não sou xiter, recuperei a conta dia 14/08/2026 desde então eu dono da conta
+            MARUJO que estou jogando, não o cara que hackeou e xitou, sempre joguei cs de forma legit,
+            nunca usei nada no cs, minha primeira conta eu criei em 2015, vendi ela em 2019 para comprar
+            uma moto na época a conta tinha 2 facas, em 2020 criei essa conta atual MARUJO desde então
+            jamais cogitei usar qualquer programa de xiter. Enfim é isso, se possível elogie meu
+            perfil para eu sair desse buraco que me encontro.
+        </p>
+        <h1>provas que não xitei</h1>
+    </header>
+
+    <header>
+        <h4>Algumas parte das imagens estão borradas para não vazar meu email ou outro tipo de dado sensível!!</h4>
+    </header>
+
+    <header>
+        <h4>clique nas imagens para deixar maior a visualização!!</h4>
+    </header>
+
+    <main>
+        <div class="carousel-container">
+            <button class="nav-btn prev-btn" id="prevBtnCarousel" title="Anterior">&#10094;</button>
+            <div class="image-wrapper" id="openLightboxBtn" title="Clique para expandir">
+                <img src="" alt="Prova" class="carousel-img" id="carouselImg">
+            </div>
+            <button class="nav-btn next-btn" id="nextBtnCarousel" title="Próxima">&#10095;</button>
+        </div>
+    </main>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close-btn" id="closeBtn" title="Fechar">&times;</span>
+        <button class="nav-btn prev-btn-lb" id="prevBtnLb" title="Anterior">&#10094;</button>
+        <img src="" alt="Prova Ampliada" class="lightbox-img" id="lightboxImg">
+        <button class="nav-btn next-btn-lb" id="nextBtnLb" title="Próxima">&#10095;</button>
+    </div>
+
+    <script>
+        // Array com os nomes das imagens baseado no conteúdo da pasta 'img'
+        const images = [
+            "1.png",
+            "2.png",
+            "3.png",
+            "4.png",
+            "5.png",
+            "6.png",
+            "7.png",
+            "8.png",
+            "9.png",
+            "10.png",
+            "11.png",
+            "12.png",
+            "13.png",
+            "14.png",
+            "15.png",
+            "16.png",
+            "17.png"
+        ];
+
+        let currentIndex = 0;
+
+        const carouselImg = document.getElementById('carouselImg');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightbox = document.getElementById('lightbox');
+
+        const prevBtnCarousel = document.getElementById('prevBtnCarousel');
+        const nextBtnCarousel = document.getElementById('nextBtnCarousel');
+        const openLightboxBtn = document.getElementById('openLightboxBtn');
+
+        const closeBtn = document.getElementById('closeBtn');
+        const prevBtnLb = document.getElementById('prevBtnLb');
+        const nextBtnLb = document.getElementById('nextBtnLb');
+
+        function updateImages() {
+            carouselImg.src = images[currentIndex];
+            lightboxImg.src = images[currentIndex];
+        }
+
+        function nextImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex + 1) % images.length;
+            updateImages();
+        }
+
+        function prevImage(e) {
+            if (e) e.stopPropagation();
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateImages();
+        }
+
+        function openLightbox() {
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Evita scroll na página principal
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Restaura o scroll
+        }
+
+        // Inicializa a primeira imagem
+        if (images.length > 0) {
+            updateImages();
+        }
+
+        // Event Listeners
+        nextBtnCarousel.addEventListener('click', nextImage);
+        prevBtnCarousel.addEventListener('click', prevImage);
+
+        openLightboxBtn.addEventListener('click', openLightbox);
+
+        closeBtn.addEventListener('click', closeLightbox);
+        nextBtnLb.addEventListener('click', nextImage);
+        prevBtnLb.addEventListener('click', prevImage);
+
+        // Fecha a imagem em tela cheia ao clicar fora dela (no fundo escuro)
+        lightbox.addEventListener('click', function (e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Navegação por teclado (Setas e Esc)
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+            if (e.key === 'ArrowRight') {
+                nextImage();
+            }
+            if (e.key === 'ArrowLeft') {
+                prevImage();
+            }
+        });
+    </script>
+</body>
+
+</html>
